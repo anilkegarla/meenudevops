@@ -1,0 +1,38 @@
+# free -h   ( to see the storage)
+
+# sudo yum install epel-release
+sudo amazon-linux-extras install epel
+sudo amazon-linux-extras install java-openjdk11
+
+login as root
+# sudo su-
+# cd /opt
+By default wget and unzip are installed in amzoon linux machine , if not installed use this command.
+#yum install wget unzip -y
+Open sonarqube official website and copy the download link.
+# wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-8.9.10.61524.zip
+# unzip sonarqube-8.9.10.61524.zip
+ as a good security practices, sonarqube is not advised to run sonar server as a root user. So create a new user call sonar and grand sudo access to manage sonar service as follows 
+# useradd sonar
+# visudo
+root  ALL=(ALL)       ALL
+add this line : sonar  ALL=(ALL)       ALL
+if u don’t want to give password use this command : sonar  ALL=(ALL)       NOPASSWD:ALL
+
+# ll
+drwxr-xr-x 11 root root       172 Oct 14 09:25 sonarqube-8.9.10.61524
+here it is root user acces so we need add ownership for sonar user
+# chown -R sonar:sonar /opt/sonarqube-8.9.10.61524
+   chmod -R 775 /opt/sonarqube-8.9.10.61524  (chmod to change permissions)
+# su sonar  -   or  # su –  sonar
+#pwd
+#cd /opt
+# ll
+#cd sonarqube-8.9.10.61524
+# ll
+#cd bin
+# cd linux-x86-64
+# ./sonar.sh start
+ #  ./sonar.sh status
+
+
