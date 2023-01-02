@@ -1,30 +1,29 @@
 pipeline {
     agent any
-
     tools {
-        // Install the Maven version configured as "M3" and add it to the path.
-        maven "Maven"
+        maven 'apache-maven-3.8.7' 
     }
-
     stages {
-        stage('Gitcheckout') {
+	    
+        stage('code clone') {
+            steps { 
+			git branch: 'main', credentialsId: 'Git', url: 'https://github.com/anilkegarla/myrepo.git'
+			}
+			}
+        stage('maven version') {
             steps {
-              git credentialsId: 'git_cred', url: 'https://github.com/Meenakshi0812/meenudevops.git' 
+                sh 'mvn --version'
+          }  }
+   
+        stage('maven package') {
+            steps {
+                sh 'mvn package'
             }
         }
-        stage('build') {
+		
+        stage('maven test') {
             steps {
-              bat 'mvn clean install'
-            }
-        }
-        stage('codeQuality') {
-            steps {
-               bat 'mvn sonar:sonar'             
-            }
-        }
-        stage('deploy') {
-            steps {
-             deploy adapters: [tomcat8(credentialsId: 'Tomcat_cred', path: '', url: 'http://localhost:7000/')], contextPath: 'webAppExample', war: '**/*.war'
+                sh 'mvn test'
             }
         }
     }
