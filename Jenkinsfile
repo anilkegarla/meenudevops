@@ -7,13 +7,14 @@ pipeline {
 	    
         stage('code clone') {
             steps { 
-			git branch: 'main', credentialsId: 'Git', url: 'https://github.com/anilkegarla/myrepo.git'
+		git branch: 'main', credentialsId: 'Git', url: 'https://github.com/anilkegarla/myrepo.git'
 			}
 			}
         stage('maven version') {
             steps {
                 sh 'mvn --version'
-          }  }
+          } 
+	 }
    
         stage('maven package') {
             steps {
