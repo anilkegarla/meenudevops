@@ -7,8 +7,7 @@ pipeline {
 	    
         stage('code clone') {
             steps { 
-		git branch: 'main', credentialsId: 'Git', url: 'https://github.com/anilkegarla/myrepo.git'
-			}
+		git branch: 'main', credentialsId: 'Git', url: 'https://github.com/anilkegarla/meenudevops.git'
 			}
         stage('maven version') {
             steps {
